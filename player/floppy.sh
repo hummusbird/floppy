@@ -3,7 +3,7 @@
 path="/mnt/floppy/"
 song="song.opus"
 drive="sdb"
-chkdrive="lsblk --output NAME --include 8 --noheadings --noempty /dev/${drive}"
+chkdrive="lsblk --output NAME --include 8 --noheadings /dev/${drive}"
 
 while true
 do
