@@ -5,7 +5,6 @@ song="song.opus"
 drive="sdb"
 chkdrive="lsblk --output NAME --include 8 --noheadings --noempty /dev/${drive}"
 
-
 while true
 do
   disk="$($chkdrive)"
