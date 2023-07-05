@@ -2,12 +2,15 @@
 
 path="/mnt/floppy/"
 song="song.opus"
+drive="sdb"
+chkdrive="lsblk --output NAME --include 8 --noheadings --noempty /dev/${drive}"
+
 
 while true
 do
-  disk="$(lsblk --output NAME --exclude 259 --noheadings --noempty)"
+  disk="$($chkdrive)"
 
-  if [[ $disk != "sda" ]]; then
+  if [[ $disk != $drive ]]; then
     echo "no disk inserted"
     sleep 2 
 
@@ -15,13 +18,13 @@ do
     echo "playing $path$song"
     ffplay "$path$song" -hide_banner -loglevel error -autoexit -nodisp &
 
-    while [[ "$(lsblk --output NAME --exclude 259 --noheadings --noempty)" == "sda" ]]
+    while [[ "$($chkdrive)" == $drive ]]
     do
-      sleep 1
+      sleep 0.2
       echo "playing..."
     done
 
-    echo "disk removed..."
+    echo "disk removed!"
     pkill ffplay
     sleep 2
 
