@@ -13,9 +13,17 @@ do
 
   elif [[ -f $path$song ]]; then
     echo "playing $path$song"
-    ffplay "$path$song" -autoexit -nodisp
-    wait
-    sleep 1
+    ffplay "$path$song" -hide_banner -loglevel error -autoexit -nodisp &
+
+    while [[ "$(lsblk --output NAME --exclude 259 --noheadings --noempty)" == "sda" ]]
+    do
+      sleep 1
+      echo "playing..."
+    done
+
+    echo "disk removed..."
+    pkill ffplay
+    sleep 2
 
   else
     echo "no song found"
