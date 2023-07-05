@@ -3,7 +3,7 @@ import sys
 
 lcd = I2C_LCD_driver.lcd()
 
-input = sys.stdin.read().split(",")
+input = sys.stdin.read().split("***")
 input.append("")
 top = input[0].rstrip()
 bot = input[1].rstrip()

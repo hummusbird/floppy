@@ -2,11 +2,12 @@
 
 path="/mnt/floppy/"
 song="song.opus"
+meta="meta.txt"
 drive="sda"
 chkdrive="lsblk --output NAME --include 8 --noheadings /dev/${drive}"
 
 echo "Floppy Disk Jukebox - V1.0 by @hummusbird"
-echo "FDD Jukebox,V1.0 @hummusbird" | python ../lcd/display.py &
+echo "FDD Jukebox***V1.0 @hummusbird" | python ../lcd/display.py &
 sleep 2
 
 while true
@@ -18,7 +19,7 @@ do
     sleep 2 
 
   elif [[ -f $path$song ]]; then
-    echo "playing $path$song" | python ../lcd/scroll.py &
+    echo $(cat $path$meta)  | python ../lcd/scroll.py &
     ffplay "$path$song" -hide_banner -loglevel error -autoexit -nodisp &
 
     while [[ "$($chkdrive)" == $drive ]]

@@ -5,8 +5,15 @@ import sys
 lcd = I2C_LCD_driver.lcd()
 
 str_pad = " " * 16
-inputstring = sys.stdin.read().rstrip()
+input = sys.stdin.read().split("***")
+input.append("")
+inputstring = input[0].rstrip()
 inputstring = str_pad + inputstring
+
+bot = input[1].rstrip()
+botpadlen = (16 - len(bot)) / 2
+botpadstr = " " * botpadlen + bot + " " * botpadlen
+lcd.lcd_display_string(botpadstr, 2)
 
 while True:
     for i in range (0, len(inputstring)):
